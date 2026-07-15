@@ -57,6 +57,16 @@
                             </div>
                         </div>
                     </div>
+                    <div class="flex items-center space-x-2 mt-4 pt-3 border-t border-gray-100">
+                        <Link :href="`/students/${student.id}/edit`" class="inline-flex items-center space-x-1 px-3 py-1.5 text-xs font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
+                            <Pencil class="w-3 h-3" />
+                            <span>Editar</span>
+                        </Link>
+                        <button @click="confirmDelete(student.id)" class="inline-flex items-center space-x-1 px-3 py-1.5 text-xs font-medium text-red-600 bg-red-50 rounded-lg hover:bg-red-100 transition-colors">
+                            <Trash2 class="w-3 h-3" />
+                            <span>Eliminar</span>
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -83,7 +93,7 @@
 import { ref } from 'vue';
 import { Link, router } from '@inertiajs/vue3';
 import Layout from '@/Components/Layout.vue';
-import { UserPlus, Search, User, GraduationCap, Building, FolderOpen, Users } from 'lucide-vue-next';
+import { UserPlus, Search, User, GraduationCap, Building, FolderOpen, Users, Pencil, Trash2 } from 'lucide-vue-next';
 
 const props = defineProps({
     students: Object,
@@ -100,5 +110,11 @@ function debouncedFilter() {
         if (localSearch.value) params.search = localSearch.value;
         router.get('/students', params, { preserveState: true, replace: true });
     }, 300);
+}
+
+function confirmDelete(id) {
+    if (confirm('Seguro que deseas eliminar este estudiante? Esto eliminara todos sus proyectos asociados.')) {
+        router.delete(`/students/${id}`);
+    }
 }
 </script>

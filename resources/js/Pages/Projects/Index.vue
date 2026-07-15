@@ -92,6 +92,16 @@
                                 +{{ project.technologies.length - 3 }}
                             </span>
                         </div>
+                        <div class="flex items-center space-x-2 pt-3 border-t border-gray-100">
+                            <Link :href="`/projects/${project.id}/edit`" class="inline-flex items-center space-x-1 px-3 py-1.5 text-xs font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
+                                <Pencil class="w-3 h-3" />
+                                <span>Editar</span>
+                            </Link>
+                            <button @click="confirmDelete(project.id)" class="inline-flex items-center space-x-1 px-3 py-1.5 text-xs font-medium text-red-600 bg-red-50 rounded-lg hover:bg-red-100 transition-colors">
+                                <Trash2 class="w-3 h-3" />
+                                <span>Eliminar</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -119,7 +129,7 @@
 import { reactive } from 'vue';
 import { Link, router } from '@inertiajs/vue3';
 import Layout from '@/Components/Layout.vue';
-import { Plus, Search, User, Tag, FolderOpen, Image as ImageIcon } from 'lucide-vue-next';
+import { Plus, Search, User, Tag, FolderOpen, Image as ImageIcon, Pencil, Trash2 } from 'lucide-vue-next';
 
 const props = defineProps({
     projects: Object,
@@ -162,5 +172,11 @@ function statusBadge(status) {
         published: 'bg-green-50 text-green-700 border border-green-200',
     };
     return badges[status] || '';
+}
+
+function confirmDelete(id) {
+    if (confirm('Seguro que deseas eliminar este proyecto?')) {
+        router.delete(`/projects/${id}`);
+    }
 }
 </script>
