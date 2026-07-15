@@ -20,10 +20,7 @@ Aplicacion web para registrar proyectos desarrollados por estudiantes universita
 
 ## Instalacion local
 
-```bash
-git clone https://github.com/SkimerPM/banco-de-talentos-universitarios.git
-cd banco-de-talentos-universitarios
-```
+Descomprimir el archivo ZIP del proyecto y abrir una terminal en la carpeta resultante.
 
 Instalar dependencias:
 
